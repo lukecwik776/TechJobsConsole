@@ -22,6 +22,8 @@ namespace TechJobsConsole
             columnChoices.Add("position type", "Position Type");
             columnChoices.Add("all", "All");
 
+            List<string> choices = new List<string> { "core competency", "employer", "location", "position type"};
+
             Console.WriteLine("Welcome to LaunchCode's TechJobs App!");
 
             // Allow user to search/list until they manually quit with ctrl+c
@@ -64,6 +66,8 @@ namespace TechJobsConsole
                     if (columnChoice.Equals("all"))
                     {
                         Console.WriteLine("Search all fields not yet implemented.");
+                        searchResults = JobData.FindByValue(choices, searchTerm);
+                        PrintJobs(searchResults);
                     }
                     else
                     {
@@ -118,7 +122,30 @@ namespace TechJobsConsole
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("PrintJobs is not implemented yet");
+            if (someJobs.Count == 0)
+            {
+                Console.WriteLine("No results found.");
+            } else
+            {
+                foreach (Dictionary<string, string> job in someJobs)
+                {
+                    Console.WriteLine($"*****");
+                    //Nestled foreach loop in the event that new fields are added later
+                    foreach (string key in job.Keys)
+                    {
+                        Console.WriteLine($"{key}: {job[key]}");
+                    }
+                    Console.WriteLine($"*****");
+
+                    //Console.WriteLine($"*****");
+                    //Console.WriteLine($"Name: {job["name"]}");
+                    //Console.WriteLine($"Employer: {job["employer"]}");
+                    //Console.WriteLine($"Location: {job["location"]}");
+                    //Console.WriteLine($"Position Type: {job["position type"]}");
+                    //Console.WriteLine($"Core Competency: {job["core competency"]}");
+                    //Console.WriteLine($"*****");
+                }
+            }
         }
     }
 }
